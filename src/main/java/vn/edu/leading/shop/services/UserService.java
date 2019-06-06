@@ -20,4 +20,6 @@ public interface UserService {
     void register(UserModel userModel) throws Exception;
 
     boolean delete(Long id);
+
+    Optional<UserModel> findByUsername(String name);
 }

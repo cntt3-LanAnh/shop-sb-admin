@@ -10,6 +10,7 @@ import vn.edu.leading.shop.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -47,5 +48,10 @@ public class UserServicelmpl extends BaseService<UserModel> implements UserServi
         userModel.setRoleModels(roleModels);
         userModel.setPassword(passwordEncoder.encode(userModel.getPassword()));
         baseRepository.save(userModel);
+    }
+
+    @Override
+    public Optional<UserModel> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

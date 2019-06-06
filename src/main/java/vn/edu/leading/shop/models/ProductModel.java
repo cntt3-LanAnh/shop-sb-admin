@@ -31,6 +31,10 @@ public class ProductModel extends BaseModel<ProductModel> {
 
     private Double price;
 
+    private String  description;
+
+    private String imageurl;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "supplier_id", nullable = false)
     @BatchSize(size = 50)

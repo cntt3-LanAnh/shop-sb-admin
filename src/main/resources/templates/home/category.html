@@ -1,5 +1,7 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -7,17 +9,20 @@
         <link rel="icon" href="img/favicon.png" type="image/png">
         <title>ListAshop</title>
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="vendors/linericon/style.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-        <link rel="stylesheet" href="vendors/lightbox/simpleLightbox.css">
-        <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="vendors/animate-css/animate.css">
-        <link rel="stylesheet" href="vendors/jquery-ui/jquery-ui.css"> 
+
+        <link rel="stylesheet" th:href="@{css/bootstrap.css}">
+        <link rel="stylesheet" th:href="@{vendors/linericon/style.css}">
+        <link rel="stylesheet" th:href="@{css/font-awesome.min.css}">
+        <link rel="stylesheet" th:href="@{vendors/owl-carousel/owl.carousel.min.css}">
+        <link rel="stylesheet" th:href="@{vendors/lightbox/simpleLightbox.css}">
+        <link rel="stylesheet" th:href="@{vendors/nice-select/css/nice-select.css}">
+        <link rel="stylesheet" th:href="@{vendors/animate-css/animate.css}">
+        <link rel="stylesheet" th:href="@{vendors/jquery-ui/jquery-ui.css}">
         <!-- main css -->
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/style-home.css}">
+        <link rel="stylesheet" th:href="@{/css/responsive.css}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         
@@ -57,7 +62,7 @@
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a>
-										<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a>
+										<li class="nav-item"><a class="nav-link" href="product_detail.html">Product Details</a>
 										<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
 										<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
@@ -81,7 +86,7 @@
 								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="lnr lnr lnr-cart"></i></a></li>
+								<li class="nav-item"><a th:href="@{/cart}" class="cart"><i class="fa fa-cart-arrow-down"></i></a></li>
 								<li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
 							</ul>
 						</div> 
@@ -140,111 +145,24 @@
 								</nav>
         					</div>
         				</div>
-        				<div class="latest_product_inner row">
-							<div class="col-lg-4 col-md-4 col-sm-6">
+        				<div class="latest_product_inner row" th:each="category,iterStat:${	categories}" th:id="${category.categoryName}">
+							<div class="col-lg-4 col-md-4 col-sm-6" th:each="product,iterStat:${category.getProducts()}">
 								<div class="f_p_item">
 									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-1.jpg" alt="">
+										<img class="img-fluid" th:src="${product.getImageurl()}" th:alt="${product.productName}">
 										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
+											<a href="#"><i class="fa fa-heart"></i></a>
+											<a class="add-to-cart" data-placement="left" data-toggle="tooltip"
+											   th:data-imageurl="${product.imageurl}" th:data-name="${product.productName}"
+											   th:data-price="${product.price}" th:id="'product'+${product.id}"
+											   title="Add to Cart"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></i></a>
 										</div>
 									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
+									<a th:href="@{/product_detail/{id}/{str}(id=${product.id}, str=${product.productName})}"><h4 th:text="${product.productName}"></h4></a>
+									<h5 th:text="${product.price}"></h5>
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-2.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-3.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-4.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-5.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-6.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-7.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="f_p_item">
-									<div class="f_p_img">
-										<img class="img-fluid" src="img/product/feature-product/f-p-8.jpg" alt="">
-										<div class="p_icon">
-											<a href="#"><i class="lnr lnr-heart"></i></a>
-											<a href="#"><i class="lnr lnr-cart"></i></a>
-										</div>
-									</div>
-									<a href="#"><h4>Long Sleeve TShirt</h4></a>
-									<h5>$150.00</h5>
-								</div>
-							</div>
+
 						</div>
         			</div>
         			<div class="col-lg-3">
@@ -254,37 +172,8 @@
 									<h3>Browse Categories</h3>
 								</div>
         						<div class="widgets_inner">
-									<ul class="list">
-										<li><a href="#">Fruits and Vegetables</a></li>
-										<li>
-											<a href="#">Meat and Fish</a>
-											<ul class="list">
-												<li><a href="#">Frozen Fish</a></li>
-												<li><a href="#">Dried Fish</a></li>
-												<li><a href="#">Fresh Fish</a></li>
-												<li><a href="#">Meat Alternatives</a></li>
-												<li><a href="#">Meat</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Cooking</a>
-											<ul class="list">
-												<li><a href="#">Frozen Fish</a></li>
-												<li><a href="#">Dried Fish</a></li>
-												<li><a href="#">Fresh Fish</a></li>
-												<li><a href="#">Meat Alternatives</a></li>
-												<li><a href="#">Meat</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Beverages</a>
-											<ul class="list">
-												<li><a href="#">Frozen Fish</a></li>
-												<li><a href="#">Dried Fish</a></li>
-												<li><a href="#">Fresh Fish</a></li>
-												<li><a href="#">Meat Alternatives</a></li>
-												<li><a href="#">Meat</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Home and Cleaning</a></li>
+									<ul class="list" th:each="category,iterStat:${categories}">
+										<li><a th:href="'#'+${category.categoryName}" th:text="${category.categoryName}"></a></li>
 									</ul>
         						</div>
         					</aside>
@@ -444,9 +333,7 @@
 							</div>
 							<div class="media">
 								<div class="d-flex">
-									<img src="img/product/most-product/m-product-11.jpg" alt="">
-								</div>
-								<div class="media-body">
+									<img src="img/product/most-product/m-product-11.jpg" alt=""><div class="media-body">
 									<a href="#"><h4>Black lace Heels</h4></a>
 									<h3>$189.00</h3>
 								</div>
@@ -549,5 +436,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="vendors/counter-up/jquery.waypoints.min.js"></script>
         <script src="vendors/counter-up/jquery.counterup.js"></script>
         <script src="js/theme.js"></script>
+		<script th:src="@{/js/cart.js}"></script>
     </body>
 </html>

@@ -9,17 +9,18 @@
         <link rel="icon" href="img/favicon.png" type="image/png">
         <title>ListAshop</title>
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="vendors/linericon/style.css">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
-        <link rel="stylesheet" href="vendors/lightbox/simpleLightbox.css">
-        <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="vendors/animate-css/animate.css">
-        <link rel="stylesheet" href="vendors/jquery-ui/jquery-ui.css"> 
+        <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+        <link rel="stylesheet" th:href="@{vendors/linericon/style.css}">
+        <link rel="stylesheet" th:href="@{css/font-awesome.min.css}">
+        <link rel="stylesheet" th:href="@{vendors/owl-carousel/owl.carousel.min.css}">
+        <link rel="stylesheet" th:href="@{vendors/lightbox/simpleLightbox.css}">
+        <link rel="stylesheet" th:href="@{vendors/nice-select/css/nice-select.css}">
+        <link rel="stylesheet" th:href="@{vendors/animate-css/animate.css}">
+        <link rel="stylesheet" th:href="@{vendors/jquery-ui/jquery-ui.css}">
         <!-- main css -->
-        <link rel="stylesheet" href="../../static/css/style.css">
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+        <link rel="stylesheet" th:href="@{/css/style-home.css}">
+        <link rel="stylesheet" th:href="@{/css/responsive.css}">
     </head>
     <body>
         
@@ -59,7 +60,7 @@
 									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop</a>
 									<ul class="dropdown-menu">
 										<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a>
-										<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a>
+										<li class="nav-item"><a class="nav-link" href="product_detail.html">Product Details</a>
 										<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a>
 										<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 										<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
@@ -83,7 +84,7 @@
 								<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
-								<li class="nav-item"><a href="#" class="cart"><i class="lnr lnr lnr-cart"></i></a></li>
+								<li class="nav-item"><a th:href="@{/cart}" class="cart"><i class="fa fa-cart-arrow-down"></i></a></li>
 								<li class="nav-item"><a href="#" class="search"><i class="lnr lnr-magnifier"></i></a></li>
 							</ul>
 						</div> 
@@ -100,9 +101,9 @@
 					<div class="banner_content text-center">
 						<h2>Single Product Page</h2>
 						<div class="page_link">
-							<a href="index.html">Home</a>
+							<a th:href="@{/}">Home</a>
 							<a href="category.html">Category</a>
-							<a href="single-product.html">Product Details</a>
+							<a href="product_detail.html">Product Details</a>
 						</div>
 					</div>
 				</div>
@@ -111,41 +112,41 @@
         <!--================End Home Banner Area =================-->
         
         <!--================Single Product Area =================-->
-        <div class="product_image_area">
+        <div class="product_image_area" th:object="${productModel}">
         	<div class="container">
         		<div class="row s_product_inner">
         			<div class="col-lg-6">
         				<div class="s_product_img">
 							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-								<ol class="carousel-indicators">
-									<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-										<img src="img/product/single-product/s-product-s-2.jpg" alt="">
-									</li>
-									<li data-target="#carouselExampleIndicators" data-slide-to="1">
-										<img src="img/product/single-product/s-product-s-3.jpg" alt="">
-									</li>
-									<li data-target="#carouselExampleIndicators" data-slide-to="2">
-										<img src="img/product/single-product/s-product-s-4.jpg" alt="">
-									</li>
-								</ol>
+								<!--<ol class="carousel-indicators">-->
+									<!--<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">-->
+										<!--<img src="img/product/single-product/s-product-s-2.jpg" alt="">-->
+									<!--</li>-->
+									<!--&lt;!&ndash;<li data-target="#carouselExampleIndicators" data-slide-to="1">&ndash;&gt;-->
+										<!--&lt;!&ndash;<img src="img/product/single-product/s-product-s-3.jpg" alt="">&ndash;&gt;-->
+									<!--&lt;!&ndash;</li>&ndash;&gt;-->
+									<!--&lt;!&ndash;<li data-target="#carouselExampleIndicators" data-slide-to="2">&ndash;&gt;-->
+										<!--&lt;!&ndash;<img src="img/product/single-product/s-product-s-4.jpg" alt="">&ndash;&gt;-->
+									<!--&lt;!&ndash;</li>&ndash;&gt;-->
+								<!--</ol>-->
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="First slide">
+										<img class="d-block w-100" th:src="${productModel.get().getImageurl()}" alt="First slide">
 									</div>
-									<div class="carousel-item">
-										<img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="Second slide">
-									</div>
-									<div class="carousel-item">
-										<img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="Third slide">
-									</div>
+									<!--<div class="carousel-item">-->
+										<!--<img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="Second slide">-->
+									<!--</div>-->
+									<!--<div class="carousel-item">-->
+										<!--<img class="d-block w-100" src="img/product/single-product/s-product-1.jpg" alt="Third slide">-->
+									<!--</div>-->
 								</div>
 							</div>
         				</div>
         			</div>
         			<div class="col-lg-5 offset-lg-1">
         				<div class="s_product_text">
-        					<h3>Faded SkyBlu Denim Jeans</h3>
-        					<h2>$149.99</h2>
+        					<h3 th:text="${productModel.get().productName}"></h3>
+        					<h2 th:text="${productModel.get().price}+'$'"></h2>
         					<ul class="list">
         						<li><a class="active" href="#"><span>Category</span> : Household</a></li>
         						<li><a href="#"><span>Availibility</span> : In Stock</a></li>
@@ -158,7 +159,7 @@
 								<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
 							</div>
         					<div class="card_area">
-        						<a class="main_btn" href="#">Add to Cart</a>
+        						<a class="add-to-cart main_btn" th:id="'product'+${productModel.get().id}" th:data-name="${productModel.get().productName}" th:data-price="${productModel.get().price}" th:data-imageurl="${product1.imageurl}">Add to Cart</a>
         						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
         						<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
         					</div>
@@ -680,5 +681,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         <script src="vendors/counter-up/jquery.waypoints.min.js"></script>
         <script src="vendors/counter-up/jquery.counterup.js"></script>
         <script src="js/theme.js"></script>
+        <script th:src="@{/js/cart.js}"></script>
     </body>
 </html>
